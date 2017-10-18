@@ -57,7 +57,7 @@ public class SdkGenApi implements Microservice  {
         @io.swagger.annotations.ApiResponse(code = 404, message = "Not Found. The list of languages is not found. ", response = void.class),
         
         @io.swagger.annotations.ApiResponse(code = 500, message = "Internal Server Error. Error while retrieving the list. ", response = void.class) })
-    public Response sdkGenLanguagesGet(@Context Request request)
+    public Response sdkGenLanguagesGet( @Context Request request)
     throws NotFoundException {
         return delegate.sdkGenLanguagesGet(request);
     }

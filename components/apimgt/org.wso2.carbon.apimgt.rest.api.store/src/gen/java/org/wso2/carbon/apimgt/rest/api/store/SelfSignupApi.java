@@ -60,8 +60,8 @@ public class SelfSignupApi implements Microservice  {
         
         @io.swagger.annotations.ApiResponse(code = 400, message = "Bad Request. Invalid request or validation error. ", response = UserDTO.class) })
     public Response selfSignupPost(@ApiParam(value = "User object to represent the new user " ,required=true) UserDTO body
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.selfSignupPost(body, request);
+        return delegate.selfSignupPost(body,request);
     }
 }

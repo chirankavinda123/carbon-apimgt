@@ -63,9 +63,9 @@ public class PoliciesApi implements Microservice  {
 ,@ApiParam(value = "Maximum size of resource array to return. ", defaultValue="25") @DefaultValue("25") @QueryParam("limit") Integer limit
 ,@ApiParam(value = "Starting point within the complete list of items qualified. ", defaultValue="0") @DefaultValue("0") @QueryParam("offset") Integer offset
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.policiesTierLevelGet(tierLevel,limit,offset,ifNoneMatch, request);
+        return delegate.policiesTierLevelGet(tierLevel,limit,offset,ifNoneMatch,request);
     }
     @GET
     @Path("/{tierLevel}/{tierName}")
@@ -84,8 +84,8 @@ public class PoliciesApi implements Microservice  {
 ,@ApiParam(value = "List API or Application type policies. ",required=true, allowableValues="api, application") @PathParam("tierLevel") String tierLevel
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.policiesTierLevelTierNameGet(tierName,tierLevel,ifNoneMatch,ifModifiedSince, request);
+        return delegate.policiesTierLevelTierNameGet(tierName,tierLevel,ifNoneMatch,ifModifiedSince,request);
     }
 }

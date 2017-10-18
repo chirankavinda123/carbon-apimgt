@@ -67,9 +67,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Validator for conditional requests; based on ETag. " )@HeaderParam("If-Match") String ifMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header. " )@HeaderParam("If-Unmodified-Since") String ifUnmodifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdCommentsCommentIdDelete(commentId,apiId,ifMatch,ifUnmodifiedSince, request);
+        return delegate.apisApiIdCommentsCommentIdDelete(commentId,apiId,ifMatch,ifUnmodifiedSince,request);
     }
     @GET
     @Path("/{apiId}/comments/{commentId}")
@@ -92,9 +92,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdCommentsCommentIdGet(commentId,apiId,ifNoneMatch,ifModifiedSince, request);
+        return delegate.apisApiIdCommentsCommentIdGet(commentId,apiId,ifNoneMatch,ifModifiedSince,request);
     }
     @PUT
     @Path("/{apiId}/comments/{commentId}")
@@ -118,9 +118,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "Comment object that needs to be updated " ,required=true) CommentDTO body
 ,@ApiParam(value = "Validator for conditional requests; based on ETag. " )@HeaderParam("If-Match") String ifMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header. " )@HeaderParam("If-Unmodified-Since") String ifUnmodifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdCommentsCommentIdPut(commentId,apiId,body,ifMatch,ifUnmodifiedSince, request);
+        return delegate.apisApiIdCommentsCommentIdPut(commentId,apiId,body,ifMatch,ifUnmodifiedSince,request);
     }
     @GET
     @Path("/{apiId}/comments")
@@ -138,9 +138,9 @@ public class ApisApi implements Microservice  {
     public Response apisApiIdCommentsGet(@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Maximum size of resource array to return. ", defaultValue="25") @DefaultValue("25") @QueryParam("limit") Integer limit
 ,@ApiParam(value = "Starting point within the complete list of items qualified. ", defaultValue="0") @DefaultValue("0") @QueryParam("offset") Integer offset
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdCommentsGet(apiId,limit,offset, request);
+        return delegate.apisApiIdCommentsGet(apiId,limit,offset,request);
     }
     @POST
     @Path("/{apiId}/comments")
@@ -159,9 +159,9 @@ public class ApisApi implements Microservice  {
         @io.swagger.annotations.ApiResponse(code = 415, message = "Unsupported media type. The entity of the request was in a not supported format. ", response = CommentDTO.class) })
     public Response apisApiIdCommentsPost(@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Comment object that should to be added " ,required=true) CommentDTO body
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdCommentsPost(apiId,body, request);
+        return delegate.apisApiIdCommentsPost(apiId,body,request);
     }
     @GET
     @Path("/{apiId}/documents/{documentId}/content")
@@ -186,9 +186,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "**Document Identifier** ",required=true) @PathParam("documentId") String documentId
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdDocumentsDocumentIdContentGet(apiId,documentId,ifNoneMatch,ifModifiedSince, request);
+        return delegate.apisApiIdDocumentsDocumentIdContentGet(apiId,documentId,ifNoneMatch,ifModifiedSince,request);
     }
     @GET
     @Path("/{apiId}/documents/{documentId}")
@@ -211,9 +211,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "**Document Identifier** ",required=true) @PathParam("documentId") String documentId
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdDocumentsDocumentIdGet(apiId,documentId,ifNoneMatch,ifModifiedSince, request);
+        return delegate.apisApiIdDocumentsDocumentIdGet(apiId,documentId,ifNoneMatch,ifModifiedSince,request);
     }
     @GET
     @Path("/{apiId}/documents")
@@ -236,9 +236,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "Maximum size of resource array to return. ", defaultValue="25") @DefaultValue("25") @QueryParam("limit") Integer limit
 ,@ApiParam(value = "Starting point within the complete list of items qualified. ", defaultValue="0") @DefaultValue("0") @QueryParam("offset") Integer offset
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdDocumentsGet(apiId,limit,offset,ifNoneMatch, request);
+        return delegate.apisApiIdDocumentsGet(apiId,limit,offset,ifNoneMatch,request);
     }
     @GET
     @Path("/{apiId}")
@@ -260,9 +260,9 @@ public class ApisApi implements Microservice  {
     public Response apisApiIdGet(@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdGet(apiId,ifNoneMatch,ifModifiedSince, request);
+        return delegate.apisApiIdGet(apiId,ifNoneMatch,ifModifiedSince,request);
     }
     @GET
     @Path("/{apiId}/ratings")
@@ -282,9 +282,9 @@ public class ApisApi implements Microservice  {
     public Response apisApiIdRatingsGet(@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Maximum size of resource array to return. ", defaultValue="25") @DefaultValue("25") @QueryParam("limit") Integer limit
 ,@ApiParam(value = "Starting point within the complete list of items qualified. ", defaultValue="0") @DefaultValue("0") @QueryParam("offset") Integer offset
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdRatingsGet(apiId,limit,offset, request);
+        return delegate.apisApiIdRatingsGet(apiId,limit,offset,request);
     }
     @GET
     @Path("/{apiId}/ratings/{ratingId}")
@@ -307,9 +307,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "Rating Id ",required=true) @PathParam("ratingId") String ratingId
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdRatingsRatingIdGet(apiId,ratingId,ifNoneMatch,ifModifiedSince, request);
+        return delegate.apisApiIdRatingsRatingIdGet(apiId,ratingId,ifNoneMatch,ifModifiedSince,request);
     }
     @GET
     @Path("/{apiId}/sdks/{language}")
@@ -330,9 +330,9 @@ public class ApisApi implements Microservice  {
         @io.swagger.annotations.ApiResponse(code = 500, message = "Internal Server Error. Error while generating SDK. ", response = void.class) })
     public Response apisApiIdSdksLanguageGet(@ApiParam(value = "ID of the specific API for which the SDK is required. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Programming language of the SDK that is required. ",required=true) @PathParam("language") String language
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdSdksLanguageGet(apiId,language, request);
+        return delegate.apisApiIdSdksLanguageGet(apiId,language,request);
     }
     @GET
     @Path("/{apiId}/swagger")
@@ -354,9 +354,9 @@ public class ApisApi implements Microservice  {
     public Response apisApiIdSwaggerGet(@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdSwaggerGet(apiId,ifNoneMatch,ifModifiedSince, request);
+        return delegate.apisApiIdSwaggerGet(apiId,ifNoneMatch,ifModifiedSince,request);
     }
     @PUT
     @Path("/{apiId}/user-rating")
@@ -375,9 +375,9 @@ public class ApisApi implements Microservice  {
         @io.swagger.annotations.ApiResponse(code = 415, message = "Unsupported media type. The entity of the request was in a not supported format. ", response = RatingDTO.class) })
     public Response apisApiIdUserRatingPut(@ApiParam(value = "**API ID** consisting of the **UUID** of the API. The combination of the provider of the API, name of the API and the version is also accepted as a valid API ID. Should be formatted as **provider-name-version**. ",required=true) @PathParam("apiId") String apiId
 ,@ApiParam(value = "Rating object that should to be added " ,required=true) RatingDTO body
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdUserRatingPut(apiId,body, request);
+        return delegate.apisApiIdUserRatingPut(apiId,body,request);
     }
     @GET
     @Path("/{apiId}/wsdl")
@@ -400,9 +400,9 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "Name of the label ") @QueryParam("labelName") String labelName
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisApiIdWsdlGet(apiId,labelName,ifNoneMatch,ifModifiedSince, request);
+        return delegate.apisApiIdWsdlGet(apiId,labelName,ifNoneMatch,ifModifiedSince,request);
     }
     @GET
     
@@ -423,8 +423,8 @@ public class ApisApi implements Microservice  {
 ,@ApiParam(value = "Starting point within the complete list of items qualified. ", defaultValue="0") @DefaultValue("0") @QueryParam("offset") Integer offset
 ,@ApiParam(value = "**Search condition**.  You can search in attributes by using an **\"attribute:\"** modifier.  Eg. \"provider:wso2\" will match an API if the provider of the API is exactly \"wso2\".  Additionally you can use wildcards.  Eg. \"provider:wso2*\" will match an API if the provider of the API starts with \"wso2\".  Supported attribute modifiers are [**version, context, lifeCycleStatus, description, subcontext, doc, provider, tag **]  If no advanced attribute modifier has been specified, search will match the given query string against API Name. ") @QueryParam("query") String query
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.apisGet(limit,offset,query,ifNoneMatch, request);
+        return delegate.apisGet(limit,offset,query,ifNoneMatch,request);
     }
 }

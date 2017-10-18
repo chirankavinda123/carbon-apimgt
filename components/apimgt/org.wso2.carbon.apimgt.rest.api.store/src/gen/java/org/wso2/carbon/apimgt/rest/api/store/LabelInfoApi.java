@@ -57,8 +57,8 @@ public class LabelInfoApi implements Microservice  {
     public Response labelInfoGet(@ApiParam(value = "Defines comma separated list of labels ",required=true) @QueryParam("labels") String labels
 ,@ApiParam(value = "Validator for conditional requests; based on the ETag of the formerly retrieved variant of the resourec. " )@HeaderParam("If-None-Match") String ifNoneMatch
 ,@ApiParam(value = "Validator for conditional requests; based on Last Modified header of the formerly retrieved variant of the resource. " )@HeaderParam("If-Modified-Since") String ifModifiedSince
-, @Context Request request)
+ ,@Context Request request)
     throws NotFoundException {
-        return delegate.labelInfoGet(labels,ifNoneMatch,ifModifiedSince, request);
+        return delegate.labelInfoGet(labels,ifNoneMatch,ifModifiedSince,request);
     }
 }
