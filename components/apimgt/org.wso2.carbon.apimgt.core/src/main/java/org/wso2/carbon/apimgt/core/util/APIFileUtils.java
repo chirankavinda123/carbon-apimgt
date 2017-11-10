@@ -26,7 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wso2.carbon.apimgt.core.exception.APIMgtDAOException;
+import org.wso2.carbon.apimgt.core.exception.APIFileUtilException;
 import org.wso2.carbon.apimgt.core.models.API;
 import org.wso2.carbon.apimgt.core.models.Endpoint;
 import org.wso2.carbon.apimgt.core.models.FileApi;
@@ -70,15 +70,15 @@ public class APIFileUtils {
      * Creates a file
      *
      * @param location full path to create the file
-     * @throws APIMgtDAOException if an error occurs while extracting the file
+     * @throws APIFileUtilException if an error occurs while extracting the file
      */
-    public static void createFile(String location) throws APIMgtDAOException {
+    public static void createFile(String location) throws APIFileUtilException {
         try {
             Files.createFile(Paths.get(location));
         } catch (IOException e) {
             String msg = "Error in creating file at: " + location;
             log.error(msg, e);
-            throw new APIMgtDAOException(msg, e);
+            throw new APIFileUtilException(msg, e);
         }
     }
 
@@ -86,15 +86,15 @@ public class APIFileUtils {
      * Creates a directory
      *
      * @param path path of the directory to create
-     * @throws APIMgtDAOException if an error occurs while creating the directory
+     * @throws APIFileUtilException if an error occurs while creating the directory
      */
-    public static void createDirectory(String path) throws APIMgtDAOException {
+    public static void createDirectory(String path) throws APIFileUtilException {
         try {
             Files.createDirectories(Paths.get(path));
         } catch (IOException e) {
             String msg = "Error in creating directory at: " + path;
             log.error(msg, e);
-            throw new APIMgtDAOException(msg, e);
+            throw new APIFileUtilException(msg, e);
         }
     }
 
@@ -103,9 +103,9 @@ public class APIFileUtils {
      *
      * @param object   object to be written as JSON.
      * @param filePath full path to create the file
-     * @throws APIMgtDAOException if an error occurs while writing the object as json to file.
+     * @throws APIFileUtilException if an error occurs while writing the object as json to file.
      */
-    public static void writeObjectAsJsonToFile(Object object, String filePath) throws APIMgtDAOException {
+    public static void writeObjectAsJsonToFile(Object object, String filePath) throws APIFileUtilException {
         Gson gson = new Gson();
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(filePath);
@@ -115,7 +115,7 @@ public class APIFileUtils {
         } catch (IOException e) {
             String msg = "Error while writing the object to the file path " + filePath;
             log.error(msg, e);
-            throw new APIMgtDAOException(msg, e);
+            throw new APIFileUtilException(msg, e);
         }
     }
 
@@ -124,9 +124,9 @@ public class APIFileUtils {
      *
      * @param content  string content to be written as JSON.
      * @param filePath full path to create the file
-     * @throws APIMgtDAOException if an error occurs while writing the string as json to file.
+     * @throws APIFileUtilException if an error occurs while writing the string as json to file.
      */
-    public static void writeStringAsJsonToFile(String content, String filePath) throws APIMgtDAOException {
+    public static void writeStringAsJsonToFile(String content, String filePath) throws APIFileUtilException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser parser = new JsonParser();
         JsonObject json = parser.parse(content).getAsJsonObject();
@@ -138,9 +138,9 @@ public class APIFileUtils {
      *
      * @param path    path of the file to be written.
      * @param content Content to be written.
-     * @throws APIMgtDAOException if an error occurs while writing to file
+     * @throws APIFileUtilException if an error occurs while writing to file
      */
-    public static void writeToFile(String path, String content) throws APIMgtDAOException {
+    public static void writeToFile(String path, String content) throws APIFileUtilException {
         try {
             Files.write(Paths.get(path), content.getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE,
@@ -148,7 +148,7 @@ public class APIFileUtils {
         } catch (IOException e) {
             String msg = "I/O error while writing to file at: " + path;
             log.error(msg, e);
-            throw new APIMgtDAOException(msg, e);
+            throw new APIFileUtilException(msg, e);
         }
     }
 
@@ -157,15 +157,15 @@ public class APIFileUtils {
      *
      * @param path full path of the file to read
      * @return text content of the file
-     * @throws APIMgtDAOException if an error occurs while reading the file
+     * @throws APIFileUtilException if an error occurs while reading the file
      */
-    public static String readFileContentAsText(String path) throws APIMgtDAOException {
+    public static String readFileContentAsText(String path) throws APIFileUtilException {
         try {
             return new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
         } catch (IOException e) {
             String msg = "Error while reading file " + path;
             log.error(msg, e);
-            throw new APIMgtDAOException(msg, e);
+            throw new APIFileUtilException(msg, e);
         }
     }
 
@@ -199,15 +199,15 @@ public class APIFileUtils {
      * Delete a given directory
      *
      * @param path Path to the directory to be deleted
-     * @throws APIMgtDAOException if unable to delete the directory
+     * @throws APIFileUtilException if unable to delete the directory
      */
-    public static void deleteDirectory(String path) throws APIMgtDAOException {
+    public static void deleteDirectory(String path) throws APIFileUtilException {
         try {
             FileUtils.deleteDirectory(new File(path));
         } catch (IOException e) {
             String errorMsg = "Error while deleting directory : " + path;
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
     }
 
@@ -215,15 +215,15 @@ public class APIFileUtils {
      * Delete a given file
      *
      * @param path Path to the file to be deleted
-     * @throws APIMgtDAOException if unable to delete the file
+     * @throws APIFileUtilException if unable to delete the file
      */
-    public static void deleteFile(String path) throws APIMgtDAOException {
+    public static void deleteFile(String path) throws APIFileUtilException {
         try {
             Files.delete(Paths.get(path));
         } catch (IOException e) {
             String errorMsg = "Error while deleting file : " + path;
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
     }
 
@@ -232,9 +232,9 @@ public class APIFileUtils {
      *
      * @param api            {@link FileApi} object to be exported
      * @param exportLocation file system location to write the API definition
-     * @throws APIMgtDAOException if an error occurs while writing the API definition
+     * @throws APIFileUtilException if an error occurs while writing the API definition
      */
-    public static void exportApiDefinitionToFileSystem(FileApi api, String exportLocation) throws APIMgtDAOException {
+    public static void exportApiDefinitionToFileSystem(FileApi api, String exportLocation) throws APIFileUtilException {
         String apiFileLocation = exportLocation + File.separator + APIMgtConstants.APIFileUtilConstants
                 .API_DEFINITION_FILE_PREFIX + api.getId() + APIMgtConstants.APIFileUtilConstants.JSON_EXTENSION;
         APIFileUtils.writeObjectAsJsonToFile(api, apiFileLocation);
@@ -249,10 +249,10 @@ public class APIFileUtils {
      * @param swaggerDefinition swagger definition
      * @param api               {@link API} instance relevant to the swagger definition
      * @param exportLocation    file system location to which the swagger definition will be written
-     * @throws APIMgtDAOException if an error occurs while writing the Endpoint
+     * @throws APIFileUtilException if an error occurs while writing the Endpoint
      */
     public static void exportSwaggerDefinitionToFileSystem(String swaggerDefinition, API api, String exportLocation)
-            throws APIMgtDAOException {
+            throws APIFileUtilException {
         String swaggerDefinitionLocation = exportLocation + File.separator + APIMgtConstants.APIFileUtilConstants
                 .SWAGGER_DEFINITION_FILE_PREFIX + api.getId() + APIMgtConstants.APIFileUtilConstants.JSON_EXTENSION;
         APIFileUtils.writeStringAsJsonToFile(swaggerDefinition, swaggerDefinitionLocation);
@@ -269,9 +269,9 @@ public class APIFileUtils {
      *
      * @param endpoint       {@link Endpoint} object to be exported
      * @param exportLocation file system location to write the Endpoint
-     * @throws APIMgtDAOException if an error occurs while writing the Endpoint
+     * @throws APIFileUtilException if an error occurs while writing the Endpoint
      */
-    public static void exportEndpointToFileSystem(Endpoint endpoint, String exportLocation) throws APIMgtDAOException {
+    public static void exportEndpointToFileSystem(Endpoint endpoint, String exportLocation) throws APIFileUtilException {
         String endpointFileLocation = exportLocation + File.separator + endpoint.getName() + APIMgtConstants
                 .APIFileUtilConstants.JSON_EXTENSION;
         APIFileUtils.writeObjectAsJsonToFile(endpoint, endpointFileLocation);
@@ -287,10 +287,10 @@ public class APIFileUtils {
      * @param config         gateway config of the api
      * @param api            {@link API} instance
      * @param exportLocation file system location to write the API gateway config.
-     * @throws APIMgtDAOException if an error occurs while writing the API definition
+     * @throws APIFileUtilException if an error occurs while writing the API definition
      */
     public static void exportGatewayConfigToFileSystem(String config, API api, String exportLocation)
-            throws APIMgtDAOException {
+            throws APIFileUtilException {
         if (config == null) {
             // not gateway config found, return
             log.warn("No gateway configuration found for API with api: " + api.getName() + ", version: " + api
@@ -311,17 +311,17 @@ public class APIFileUtils {
      *
      * @param thumbnailInputStream {@link InputStream} instance with thumbnail data
      * @param exportLocation       file system location to which the thumbnail will be written
-     * @throws APIMgtDAOException if unable to export thumbnail
+     * @throws APIFileUtilException if unable to export thumbnail
      */
     public static void exportThumbnailToFileSystem(InputStream thumbnailInputStream, String exportLocation)
-            throws APIMgtDAOException {
+            throws APIFileUtilException {
         String thumbnailFileLocation = exportLocation + File.separator + APIMgtConstants.APIFileUtilConstants
                 .THUMBNAIL_FILE_NAME;
         try {
             APIFileUtils.createFile(thumbnailFileLocation);
             APIFileUtils.writeStreamToFile(thumbnailFileLocation, thumbnailInputStream);
 
-        } catch (APIMgtDAOException e) {
+        } catch (APIFileUtilException e) {
             String errorMsg = "Unable to export the thumbnail to file " + exportLocation;
             log.error(errorMsg, e);
             APIFileUtils.deleteFile(thumbnailFileLocation);
@@ -334,15 +334,15 @@ public class APIFileUtils {
      *
      * @param path        full path of the file to write
      * @param inputStream {@link InputStream} instance
-     * @throws APIMgtDAOException if an error occurs while writing to the file
+     * @throws APIFileUtilException if an error occurs while writing to the file
      */
-    public static void writeStreamToFile(String path, InputStream inputStream) throws APIMgtDAOException {
+    public static void writeStreamToFile(String path, InputStream inputStream) throws APIFileUtilException {
         try (FileOutputStream outputStream = new FileOutputStream(path)) {
             IOUtils.copy(inputStream, outputStream);
         } catch (IOException e) {
             String errorMsg = "Unable to write to file at path: " + path;
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         } finally {
             IOUtils.closeQuietly(inputStream);
         }
@@ -353,15 +353,15 @@ public class APIFileUtils {
      *
      * @param path full path of the file to read
      * @return {@link InputStream} instance with file data
-     * @throws APIMgtDAOException if an error occurs while reading the file
+     * @throws APIFileUtilException if an error occurs while reading the file
      */
-    public static InputStream readFileContentAsStream(String path) throws APIMgtDAOException {
+    public static InputStream readFileContentAsStream(String path) throws APIFileUtilException {
         try {
             return new FileInputStream(path);
         } catch (IOException e) {
             String errorMsg = "Error while reading file " + path;
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
     }
 
@@ -370,16 +370,16 @@ public class APIFileUtils {
      *
      * @param inputStream {@link InputStream} instance
      * @param archivePath path to create the zip archive
-     * @throws APIMgtDAOException if an error occurs while creating the archive
+     * @throws APIFileUtilException if an error occurs while creating the archive
      */
     public static void createArchiveFromInputStream(InputStream inputStream, String archivePath)
-            throws APIMgtDAOException {
+            throws APIFileUtilException {
         try (FileOutputStream outFileStream = new FileOutputStream(new File(archivePath))) {
             IOUtils.copy(inputStream, outFileStream);
         } catch (IOException e) {
             String errorMsg = "Error in Creating archive from data.";
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
 
     }
@@ -390,10 +390,10 @@ public class APIFileUtils {
      * @param archiveFilePath path of the zip archive
      * @param destination     extract location
      * @return name of the extracted zip archive
-     * @throws APIMgtDAOException if an error occurs while extracting the archive
+     * @throws APIFileUtilException if an error occurs while extracting the archive
      */
     public static String extractArchive(String archiveFilePath, String destination)
-            throws APIMgtDAOException {
+            throws APIFileUtilException {
         String archiveName = null;
 
         try (ZipFile zip = new ZipFile(new File(archiveFilePath))) {
@@ -429,7 +429,7 @@ public class APIFileUtils {
         } catch (IOException e) {
             String errorMsg = "Failed to extract archive file: " + archiveFilePath + " to destination: " + destination;
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
     }
 
@@ -438,9 +438,9 @@ public class APIFileUtils {
      *
      * @param thumbnailFilePath path to file
      * @return thumbnail as a {@link InputStream} instance
-     * @throws APIMgtDAOException if an error occurs when getting thumbnail
+     * @throws APIFileUtilException if an error occurs when getting thumbnail
      */
-    public static InputStream getThumbnailImage(String thumbnailFilePath) throws APIMgtDAOException {
+    public static InputStream getThumbnailImage(String thumbnailFilePath) throws APIFileUtilException {
         File thumbnailFile = new File(thumbnailFilePath);
         if (!thumbnailFile.exists()) {
             return null;
@@ -469,10 +469,10 @@ public class APIFileUtils {
      * @param apiArchiveLocation            full path of the archive location
      * @param extractLocation               full path to the location to which the archive will be written
      * @return location to which APIs were extracted
-     * @throws APIMgtDAOException if an error occurs while extracting the archive
+     * @throws APIFileUtilException if an error occurs while extracting the archive
      */
     public static String extractUploadedArchive(InputStream uploadedApiArchiveInputStream, String importedDirectoryName,
-            String apiArchiveLocation, String extractLocation) throws APIMgtDAOException {
+            String apiArchiveLocation, String extractLocation) throws APIFileUtilException {
         String archiveExtractLocation;
         try {
             // create api import directory structure
@@ -483,11 +483,11 @@ public class APIFileUtils {
             archiveExtractLocation = extractLocation + File.separator + importedDirectoryName;
             extractArchive(apiArchiveLocation, archiveExtractLocation);
 
-        } catch (APIMgtDAOException e) {
+        } catch (APIFileUtilException e) {
             APIFileUtils.deleteDirectory(extractLocation);
             String errorMsg = "Error in accessing uploaded API archive";
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
         return archiveExtractLocation;
     }
@@ -498,10 +498,10 @@ public class APIFileUtils {
      * @param sourceDirectory directory to create zip archive from
      * @param archiveLocation path to the archive location, excluding archive name
      * @param archiveName     name of the archive to create
-     * @throws APIMgtDAOException if an error occurs while creating the archive
+     * @throws APIFileUtilException if an error occurs while creating the archive
      */
     public static void archiveDirectory(String sourceDirectory, String archiveLocation, String archiveName)
-            throws APIMgtDAOException {
+            throws APIFileUtilException {
 
         File directoryToZip = new File(sourceDirectory);
 
@@ -514,7 +514,7 @@ public class APIFileUtils {
             String errorMsg = "Error while writing archive file " + directoryToZip.getPath() + " to archive " +
                     archiveLocation;
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
         if (log.isDebugEnabled()) {
             log.debug("Archived API generated successfully" + archiveName);
@@ -527,9 +527,9 @@ public class APIFileUtils {
      *
      * @param path full path of the root directory
      * @return Set of directory path under the root directory given by path
-     * @throws APIMgtDAOException if an error occurs while listing directories
+     * @throws APIFileUtilException if an error occurs while listing directories
      */
-    public static Set<String> getDirectoryList(String path) throws APIMgtDAOException {
+    public static Set<String> getDirectoryList(String path) throws APIFileUtilException {
         Set<String> directoryNames = new HashSet<>();
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(path))) {
             for (Path directoryPath : directoryStream) {
@@ -538,7 +538,7 @@ public class APIFileUtils {
         } catch (IOException e) {
             String errorMsg = "Error while listing directories under " + path;
             log.error(errorMsg, e);
-            throw new APIMgtDAOException(errorMsg, e);
+            throw new APIFileUtilException(errorMsg, e);
         }
         return directoryNames;
     }
